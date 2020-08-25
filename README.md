@@ -6,8 +6,9 @@ GitHub Pages: placeholder
 
 # 💭 Design Decisions
 
-- Since this is a front-end only app, and I did not want to use any backend code. There is no way to securely store the OMDB API keys, therefore I decided to create a dialog where user can input the API key. Ths API key is stored in local storage so user will only have to input it once. Since OMDB also only has 1,000 daily limit, this also allows users to put in a new key. Solves: pushing API key to gitHub / hitting daily limits
+- Since this is a front-end only app, and I did not want to use any backend code. There is no way to securely store the OMDB API keys, therefore I decided to create a dialog where user can input the API key. Ths API key is stored in local storage so user will only have to input it once. Since OMDB also only has 1,000 daily limit, this also allows users to put in a new key. Solves: secruity issue of pushing API key to gitHub / hitting daily limits
 - Use Material-UI library to make it look clean, simple, and modern!
+- Use movie icons in front of the list. I was deciding between displaying the poster or using the movie icon. Given that OMDB return movies, series, esposides, using icons can used to differentiate the different types in the future. (currenly only showing movies)
 
 # 💡Features
 
