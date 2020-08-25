@@ -13,7 +13,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import { Button, IconButton } from "@material-ui/core";
+import { Button, IconButton, Box } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import MovieIcon from "@material-ui/icons/Movie";
@@ -116,12 +116,12 @@ function App() {
     );
   } else if (isError === true) {
     showSearchResults = (
-      <div>
+      <Box>
         <h3>
-          Results for "{searchKey}" ({numResult})
+          Results for "{searchKey}" ({0})
         </h3>
-        <p>Uh no... {error} Try searching something else, or keep typing...</p>
-      </div>
+        <p>Uh no... {error}</p>
+      </Box>
     );
   } else {
     showSearchResults = (
@@ -147,6 +147,7 @@ function App() {
                       aria-label="add"
                       onClick={() => addNomination(movie.imdbID)}
                       disabled={isNominated}
+                      color="primary"
                     >
                       <StarIcon />
                     </IconButton>
@@ -165,10 +166,8 @@ function App() {
   if (Object.keys(nominations).length === 0) {
     showNominations = (
       <div>
-        <h5>Add something to the list...</h5>
         <p>
-          Use the search bar to find movies you want to add to the nomination
-          list!
+          Add something to the nomination list... <br />
         </p>
       </div>
     );
@@ -203,12 +202,28 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <Box
+      className="App"
+      display="flex"
+      flexDirection="column"
+      justifyContent="flex-start"
+      p={4}
+    >
+      <Box m={1} className="Header">
         <h1>The Shoppies</h1>
+      </Box>
+      <Box
+        m={2}
+        className="API-settings"
+        position="absolute"
+        top={10}
+        right={10}
+      >
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
           Set API Key
         </Button>
+      </Box>
+      <Box m={1} className="Alert-Banner-5movies">
         {showPopup && (
           <Alert
             onClose={() => {
@@ -218,39 +233,44 @@ function App() {
             You have nominated 5 movies!
           </Alert>
         )}
-        <div>
-          <Grid container spacing={5}>
-            <Grid item xs={12}>
-              <Paper>
-                <SearchBar
-                  onChange={(e) => setSearchKey(e.target.value)}
-                  value={searchKey}
-                />
-              </Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper>{showSearchResults}</Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper>
+      </Box>
+      <Box m={1} p={1}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Paper>
+              <SearchBar
+                onChange={(e) => setSearchKey(e.target.value)}
+                value={searchKey}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper>
+              <Box p={1}>{showSearchResults}</Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper>
+              <Box p={1}>
                 <h3>
-                  Nominations ({5 - Object.keys(nominations).length} Remaining)
+                  Nominations List ({5 - Object.keys(nominations).length}{" "}
+                  Remaining)
                 </h3>
                 {showNominations}
-              </Paper>
-            </Grid>
+              </Box>
+            </Paper>
           </Grid>
-        </div>
-        <FormDialog
-          isOpen={showApiSetting}
-          onClose={() => {
-            setShowApiSetting(false);
-          }}
-          value={apikey}
-          onSetApiKey={onSetApiKey}
-        />
-      </header>
-    </div>
+        </Grid>
+      </Box>
+      <FormDialog
+        isOpen={showApiSetting}
+        onClose={() => {
+          setShowApiSetting(false);
+        }}
+        value={apikey}
+        onSetApiKey={onSetApiKey}
+      />
+    </Box>
   );
 }
 
