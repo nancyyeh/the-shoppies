@@ -12,12 +12,12 @@ GitHub Pages: placeholder
 
 # 💡Features
 
-- Search OMDB and display the results (movies only)
-- Add a movie from the search results to our nomination list
-- View the list of films already nominated
-- Remove a nominee from the nomination list
-- Save nomination lists if the user leaves the page (using local storage)
-- Input API key
+- Search OMDB and display the results (movies only) - completed Aug 24
+- Add a movie from the search results to our nomination list - completed Aug 24
+- View the list of films already nominated - completed Aug 24
+- Remove a nominee from the nomination list - completed Aug 24
+- Save nomination lists if the user leaves the page (using local storage) - completed Aug 24
+- Input API key - completed Aug 25
 
 # 🖥️ Tech
 

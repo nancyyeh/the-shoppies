@@ -5,7 +5,7 @@ body {
     sans-serif;
   display: flex;
   flex-direction: column;
-  background-color: #edfef8;
+  background-color: #ebebeb;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
