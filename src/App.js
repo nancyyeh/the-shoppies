@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { Button, IconButton, Box } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import MovieIcon from "@material-ui/icons/Movie";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -120,14 +119,19 @@ function App() {
           }
         });
     }
-  }, [searchKey]);
+  }, [searchKey, apikey]);
 
   // SEARCH RESULTS
   let showSearchResults;
   if (searchKey.length < 3) {
     showSearchResults = (
       <div>
-        <h3>🔍 Find a movie by typing a keyword in the search bar!</h3>
+        <h3>
+          <span role="img" aria-label="find">
+            🔍
+          </span>{" "}
+          Find a movie in the search bar!
+        </h3>
         <p>The keyword needs to be longer than 2 characters</p>
       </div>
     );
@@ -135,16 +139,27 @@ function App() {
     showSearchResults = (
       <Box>
         <h3>
-          🎞️ Results for "{searchKey}" ({0})
+          <span role="img" aria-label="film">
+            🎞️
+          </span>{" "}
+          Results for "{searchKey}" ({0})
         </h3>
-        <p>😵 Uh no... {error}</p>
+        <p>
+          <span role="img" aria-label="confused">
+            😵
+          </span>{" "}
+          Uh no... {error}
+        </p>
       </Box>
     );
   } else {
     showSearchResults = (
       <div>
         <h3>
-          🎞️ Results for "{searchKey}" ({numResult})
+          <span role="img" aria-label="film">
+            🎞️
+          </span>{" "}
+          Results for "{searchKey}" ({numResult})
         </h3>
         <div>
           <List dense={true}>
@@ -216,7 +231,7 @@ function App() {
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
-                    aria-label="add"
+                    aria-label="remove"
                     onClick={() => removeNomination(movie.imdbID)}
                   >
                     <DeleteIcon />
@@ -319,7 +334,10 @@ function App() {
             <Paper>
               <Box p={1}>
                 <h3>
-                  🏆 Nominations List ({5 - Object.keys(nominations).length}{" "}
+                  <span role="img" aria-label="throphy">
+                    🏆
+                  </span>{" "}
+                  Nominations List ({5 - Object.keys(nominations).length}{" "}
                   Remaining)
                 </h3>
                 {showNominations}
