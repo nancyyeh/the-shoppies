@@ -4,13 +4,13 @@ import SearchBar from "./SearchBar";
 import FormDialog from "./FormDialog";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-
 import {
   List,
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
+  makeStyles,
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { Button, IconButton, Box } from "@material-ui/core";
@@ -19,6 +19,7 @@ import Alert from "@material-ui/lab/Alert";
 import MovieIcon from "@material-ui/icons/Movie";
 import DeleteIcon from "@material-ui/icons/Delete";
 import StarIcon from "@material-ui/icons/Star";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 function App() {
   const [searchKey, setSearchKey] = useState("");
@@ -33,6 +34,23 @@ function App() {
   const [showApiSetting, setShowApiSetting] = useState(false);
   const [isFiveNominationsBanner, setIsFiveNominationsBanner] = useState(false);
   const [isReachedMaxNominations, setIsReachedMaxNominations] = useState(false);
+
+  //shrink icon
+  const useStyles = makeStyles((theme) => ({
+    sectionDesktop: {
+      display: "none",
+      [theme.breakpoints.up("md")]: {
+        display: "flex",
+      },
+    },
+    sectionMobile: {
+      display: "flex",
+      [theme.breakpoints.up("md")]: {
+        display: "none",
+      },
+    },
+  }));
+  const classes = useStyles();
 
   // set nominations to local storage
   const onSetNomination = (nominations) => {
@@ -136,7 +154,15 @@ function App() {
                 <ListItem key={movie.imdbID}>
                   <ListItemAvatar>
                     <Avatar>
-                      <MovieIcon />
+                      {movie.Poster === "N/A" ? (
+                        <MovieIcon />
+                      ) : (
+                        <img
+                          src={movie.Poster}
+                          alt="movie poster"
+                          width="100%"
+                        />
+                      )}
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText primary={movie.Title} secondary={movie.Year} />
@@ -179,7 +205,11 @@ function App() {
               <ListItem key={movie.imdbID}>
                 <ListItemAvatar>
                   <Avatar>
-                    <MovieIcon />
+                    {movie.Poster === "N/A" ? (
+                      <MovieIcon />
+                    ) : (
+                      <img src={movie.Poster} alt="movie poster" width="100%" />
+                    )}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={movie.Title} secondary={movie.Year} />
@@ -209,7 +239,7 @@ function App() {
       p={3}
     >
       <Box p={2} className="Header">
-        <h1>The Shoppies</h1>
+        <img src="shoppies_logo.png" alt="shoppies logo" width="70%" />
       </Box>
       <Box
         m={2}
@@ -218,9 +248,24 @@ function App() {
         top={18}
         right={18}
       >
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+        <Button
+          className={classes.sectionDesktop}
+          variant="contained"
+          color="primary"
+          onClick={handleClickOpen}
+          aria-label="api settings desktop"
+        >
           Set API Key
         </Button>
+
+        <IconButton
+          className={classes.sectionMobile}
+          onClick={handleClickOpen}
+          color="primary"
+          aria-label="api settings mobile"
+        >
+          <SettingsIcon />
+        </IconButton>
       </Box>
       <Box
         p={1}
