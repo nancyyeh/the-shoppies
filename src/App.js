@@ -1,24 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import SearchBar from "./SearchBar";
-import FormDialog from "./FormDialog";
+import { ApiSettingsButton } from "./ApiSettingsButton";
+import { NominationsResults } from "./NominationResults";
+import { SearchResults } from "./SearchResults";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import {
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  ListItemText,
-  makeStyles,
-} from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
-import { Button, IconButton, Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import MovieIcon from "@material-ui/icons/Movie";
-import DeleteIcon from "@material-ui/icons/Delete";
-import StarIcon from "@material-ui/icons/Star";
-import SettingsIcon from "@material-ui/icons/Settings";
 
 function App() {
   const [searchKey, setSearchKey] = useState("");
@@ -29,38 +18,17 @@ function App() {
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
-  const [apikey, setApiKey] = useState(localStorage.getItem("apikey") || "");
-  const [showApiSetting, setShowApiSetting] = useState(false);
+  // API Key is currently hard coded in
+  const [apikey, setApiKey] = useState(
+    localStorage.getItem("apikey") || "cbf06e88"
+  );
   const [isFiveNominationsBanner, setIsFiveNominationsBanner] = useState(false);
   const [isReachedMaxNominations, setIsReachedMaxNominations] = useState(false);
-
-  //shrink icon
-  const useStyles = makeStyles((theme) => ({
-    sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
-      },
-    },
-    sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
-      },
-    },
-  }));
-  const classes = useStyles();
 
   // set nominations to local storage
   const onSetNomination = (nominations) => {
     setNominations(nominations);
     localStorage.setItem("nominations", JSON.stringify(nominations));
-  };
-
-  // set API Key to local storage
-  const onSetApiKey = (apikey) => {
-    setApiKey(apikey);
-    localStorage.setItem("apikey", apikey);
   };
 
   // Add movie from nominmation list
@@ -84,19 +52,14 @@ function App() {
     onSetNomination(newNomination);
   };
 
-  // open API key settings
-  const handleClickOpen = () => {
-    setShowApiSetting(true);
-  };
-  useEffect(() => {
-    if (apikey === "") {
-      setShowApiSetting(true);
-    }
-  }, [apikey]);
-
-  // GET MOVIE BACK FROM API ONLY RUN MORE THEN 2 CHARACTERS
-  useEffect(() => {
-    const url = "http://www.omdbapi.com/?apikey=" + apikey + "&s=" + searchKey;
+  // fetch movie list if keyword search is longer than 2 characters
+  const onSearch = (searchKey) => {
+    const url =
+      "http://www.omdbapi.com/?apikey=" +
+      apikey +
+      "&s=" +
+      searchKey +
+      "&type=movie";
     if (searchKey.length > 2) {
       fetch(url, {
         method: "GET",
@@ -119,131 +82,7 @@ function App() {
           }
         });
     }
-  }, [searchKey, apikey]);
-
-  // SEARCH RESULTS
-  let showSearchResults;
-  if (searchKey.length < 3) {
-    showSearchResults = (
-      <div>
-        <h3>
-          <span role="img" aria-label="find">
-            🔍
-          </span>{" "}
-          Find a movie in the search bar!
-        </h3>
-        <p>The keyword needs to be longer than 2 characters</p>
-      </div>
-    );
-  } else if (isError === true) {
-    showSearchResults = (
-      <Box>
-        <h3>
-          <span role="img" aria-label="film">
-            🎞️
-          </span>{" "}
-          Results for "{searchKey}" ({0})
-        </h3>
-        <p>
-          <span role="img" aria-label="confused">
-            😵
-          </span>{" "}
-          Uh no... {error}
-        </p>
-      </Box>
-    );
-  } else {
-    showSearchResults = (
-      <div>
-        <h3>
-          <span role="img" aria-label="film">
-            🎞️
-          </span>{" "}
-          Results for "{searchKey}" ({numResult})
-        </h3>
-        <div>
-          <List dense={true}>
-            {Object.values(movieData).map((movie) => {
-              const isNominated = nominations[movie.imdbID] !== undefined;
-              return (
-                <ListItem key={movie.imdbID}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      {movie.Poster === "N/A" ? (
-                        <MovieIcon />
-                      ) : (
-                        <img
-                          src={movie.Poster}
-                          alt="movie poster"
-                          width="100%"
-                        />
-                      )}
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={movie.Title} secondary={movie.Year} />
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      edge="end"
-                      aria-label="add"
-                      onClick={() => addNomination(movie.imdbID)}
-                      disabled={isNominated}
-                      color="primary"
-                    >
-                      <StarIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            })}
-          </List>
-        </div>
-      </div>
-    );
-  }
-
-  // SHOW NOMINATIONS
-  let showNominations;
-  if (Object.keys(nominations).length === 0) {
-    showNominations = (
-      <div>
-        <p>
-          Add something to the nomination list... <br />
-        </p>
-      </div>
-    );
-  } else {
-    showNominations = (
-      <div>
-        <div>
-          <List dense={true}>
-            {Object.values(nominations).map((movie) => (
-              <ListItem key={movie.imdbID}>
-                <ListItemAvatar>
-                  <Avatar>
-                    {movie.Poster === "N/A" ? (
-                      <MovieIcon />
-                    ) : (
-                      <img src={movie.Poster} alt="movie poster" width="100%" />
-                    )}
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={movie.Title} secondary={movie.Year} />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="remove"
-                    onClick={() => removeNomination(movie.imdbID)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </div>
-    );
-  }
+  };
 
   return (
     <Box
@@ -263,24 +102,7 @@ function App() {
         top={18}
         right={18}
       >
-        <Button
-          className={classes.sectionDesktop}
-          variant="contained"
-          color="primary"
-          onClick={handleClickOpen}
-          aria-label="api settings desktop"
-        >
-          Set API Key
-        </Button>
-
-        <IconButton
-          className={classes.sectionMobile}
-          onClick={handleClickOpen}
-          color="primary"
-          aria-label="api settings mobile"
-        >
-          <SettingsIcon />
-        </IconButton>
+        <ApiSettingsButton apikey={apikey} setApiKey={setApiKey} />
       </Box>
       <Box
         p={1}
@@ -320,14 +142,27 @@ function App() {
           <Grid item xs={12}>
             <Paper>
               <SearchBar
-                onChange={(e) => setSearchKey(e.target.value)}
+                onChange={(e) => {
+                  setSearchKey(e.target.value);
+                  onSearch(e.target.value);
+                }}
                 value={searchKey}
               />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper>
-              <Box p={1}>{showSearchResults}</Box>
+              <Box p={1}>
+                <SearchResults
+                  searchKey={searchKey}
+                  isError={isError}
+                  error={error}
+                  numResult={numResult}
+                  addNomination={addNomination}
+                  movieData={movieData}
+                  nominations={nominations}
+                />
+              </Box>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -340,20 +175,15 @@ function App() {
                   Nominations List ({5 - Object.keys(nominations).length}{" "}
                   Remaining)
                 </h3>
-                {showNominations}
+                <NominationsResults
+                  nominations={nominations}
+                  removeNomination={removeNomination}
+                />
               </Box>
             </Paper>
           </Grid>
         </Grid>
       </Box>
-      <FormDialog
-        isOpen={showApiSetting}
-        onClose={() => {
-          setShowApiSetting(false);
-        }}
-        value={apikey}
-        onSetApiKey={onSetApiKey}
-      />
     </Box>
   );
 }
