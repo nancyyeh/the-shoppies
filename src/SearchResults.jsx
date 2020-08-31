@@ -9,6 +9,15 @@ import {
 } from "@material-ui/core";
 import MovieIcon from "@material-ui/icons/Movie";
 import StarIcon from "@material-ui/icons/Star";
+import { makeStyles } from "@material-ui/core/styles";
+import Pagination from "@material-ui/lab/Pagination";
+
+const useStyles = makeStyles((theme) => ({
+  pagination: {
+    display: "flex",
+    justifyContent: "center",
+  },
+}));
 
 export function SearchResults({
   searchKey,
@@ -18,7 +27,11 @@ export function SearchResults({
   addNomination,
   movieData,
   nominations,
+  page,
+  handlePageChange,
 }) {
+  const classes = useStyles();
+
   if (searchKey.length < 3) {
     return (
       <div>
@@ -93,6 +106,13 @@ export function SearchResults({
             })}
           </List>
         </div>
+
+        <Pagination
+          page={page}
+          onChange={handlePageChange}
+          count={Math.ceil(numResult / 10)}
+          className={classes.pagination}
+        />
       </div>
     );
   }

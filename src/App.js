@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import SearchBar from "./SearchBar";
 import { ApiSettingsButton } from "./ApiSettingsButton";
@@ -18,6 +18,8 @@ function App() {
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
+  const [page, setPage] = useState(1);
+
   // API Key is currently hard coded in
   const [apikey, setApiKey] = useState(
     localStorage.getItem("apikey") || "cbf06e88"
@@ -53,12 +55,14 @@ function App() {
   };
 
   // fetch movie list if keyword search is longer than 2 characters
-  const onSearch = (searchKey) => {
+  useEffect(() => {
     const url =
       "http://www.omdbapi.com/?apikey=" +
       apikey +
       "&s=" +
       searchKey +
+      "&page=" +
+      page +
       "&type=movie";
     if (searchKey.length > 2) {
       fetch(url, {
@@ -82,6 +86,11 @@ function App() {
           }
         });
     }
+  }, [searchKey, page, apikey]);
+
+  // when page number changes
+  const handlePageChange = (event, value) => {
+    setPage(value);
   };
 
   return (
@@ -144,7 +153,6 @@ function App() {
               <SearchBar
                 onChange={(e) => {
                   setSearchKey(e.target.value);
-                  onSearch(e.target.value);
                 }}
                 value={searchKey}
               />
@@ -161,6 +169,8 @@ function App() {
                   addNomination={addNomination}
                   movieData={movieData}
                   nominations={nominations}
+                  page={page}
+                  handlePageChange={handlePageChange}
                 />
               </Box>
             </Paper>
