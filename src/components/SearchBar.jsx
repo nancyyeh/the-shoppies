@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchBar({ value, onChange }) {
+export function SearchBar({ value, onChange }) {
   const classes = useStyles();
 
   return (

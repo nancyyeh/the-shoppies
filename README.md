@@ -18,6 +18,7 @@ GitHub Pages: placeholder
 - Remove a nominee from the nomination list - completed Aug 24
 - Save nomination lists if the user leaves the page (using local storage) - completed Aug 24
 - Input API key - completed Aug 25
+- Added Pagination for research results - completed Aug 30
 
 # 🖥️ Tech
 

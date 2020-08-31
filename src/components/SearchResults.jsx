@@ -29,9 +29,10 @@ export function SearchResults({
   nominations,
   page,
   handlePageChange,
+  isFiveNominations,
 }) {
   const classes = useStyles();
-
+  // instruction that the search key needs to be longer than 2 characters
   if (searchKey.length < 3) {
     return (
       <div>
@@ -44,6 +45,7 @@ export function SearchResults({
         <p>The keyword needs to be longer than 2 characters</p>
       </div>
     );
+    // display search error
   } else if (isError === true) {
     return (
       <Box>
@@ -61,6 +63,7 @@ export function SearchResults({
         </p>
       </Box>
     );
+    // display search results - button disabled if movie is nominated or have reached 5 nominations
   } else {
     return (
       <div>
@@ -95,7 +98,7 @@ export function SearchResults({
                       edge="end"
                       aria-label="add"
                       onClick={() => addNomination(movie.imdbID)}
-                      disabled={isNominated}
+                      disabled={isNominated || isFiveNominations}
                       color="primary"
                     >
                       <StarIcon />
@@ -106,7 +109,6 @@ export function SearchResults({
             })}
           </List>
         </div>
-
         <Pagination
           page={page}
           onChange={handlePageChange}

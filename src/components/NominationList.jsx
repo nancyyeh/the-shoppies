@@ -10,7 +10,7 @@ import MovieIcon from "@material-ui/icons/Movie";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { IconButton, Avatar } from "@material-ui/core";
 
-export function NominationsResults({ nominations, removeNomination }) {
+export function NominationsList({ nominations, removeNomination }) {
   if (Object.keys(nominations).length === 0) {
     return (
       <div>

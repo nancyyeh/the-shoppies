@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import SearchBar from "./SearchBar";
-import { ApiSettingsButton } from "./ApiSettingsButton";
-import { NominationsResults } from "./NominationResults";
-import { SearchResults } from "./SearchResults";
+import { SearchBar } from "./components/SearchBar";
+import { ApiSettingsButton } from "./components/ApiSettingsButton";
+import { NominationsList } from "./components/NominationList";
+import { SearchResults } from "./components/SearchResults";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
@@ -13,19 +13,18 @@ function App() {
   const [searchKey, setSearchKey] = useState("");
   const [movieData, setMovieData] = useState([]);
   const [numResult, setNumResults] = useState(0);
+  const [page, setPage] = useState(1);
   const [isError, setIsError] = useState(true);
   const [error, setError] = useState(null);
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
-  const [page, setPage] = useState(1);
+  const [isFiveNominations, setIsFiveNominations] = useState(false);
 
   // API Key is currently hard coded in
   const [apikey, setApiKey] = useState(
     localStorage.getItem("apikey") || "cbf06e88"
   );
-  const [isFiveNominationsBanner, setIsFiveNominationsBanner] = useState(false);
-  const [isReachedMaxNominations, setIsReachedMaxNominations] = useState(false);
 
   // set nominations to local storage
   const onSetNomination = (nominations) => {
@@ -35,15 +34,9 @@ function App() {
 
   // Add movie from nominmation list
   const addNomination = (imdbID) => {
-    if (Object.keys(nominations).length < 4) {
+    if (Object.keys(nominations).length < 5) {
       const newNomination = movieData[imdbID];
       onSetNomination({ ...nominations, [imdbID]: newNomination });
-    } else if (Object.keys(nominations).length === 4) {
-      const newNomination = movieData[imdbID];
-      onSetNomination({ ...nominations, [imdbID]: newNomination });
-      setIsFiveNominationsBanner(true);
-    } else {
-      setIsReachedMaxNominations(true);
     }
   };
 
@@ -52,6 +45,11 @@ function App() {
     const newNomination = { ...nominations };
     delete newNomination[imdbID];
     onSetNomination(newNomination);
+  };
+
+  // when page number changes
+  const handlePageChange = (event, value) => {
+    setPage(value);
   };
 
   // fetch movie list if keyword search is longer than 2 characters
@@ -69,29 +67,37 @@ function App() {
         method: "GET",
       })
         .then((response) => response.json())
-        .then((result) => {
-          if (result.Response === "True") {
-            const data = {};
-            result.Search.forEach((item) => {
-              if (item.Type === "movie") {
+        .then(
+          (result) => {
+            if (result.Response === "True") {
+              setNumResults(result.totalResults);
+              const data = {};
+              result.Search.forEach((item) => {
                 data[item.imdbID] = item;
-              }
-            });
-            setMovieData(data);
-            setIsError(false);
-            setNumResults(result.totalResults);
-          } else {
-            setError(result.Error);
+              });
+              setMovieData(data);
+              setIsError(false);
+            } else {
+              setError(result.Error);
+              setIsError(true);
+            }
+          },
+          (error) => {
             setIsError(true);
+            setError(error);
           }
-        });
+        );
     }
   }, [searchKey, page, apikey]);
 
-  // when page number changes
-  const handlePageChange = (event, value) => {
-    setPage(value);
-  };
+  // update if nominations num changes. if hits 5 show alert
+  useEffect(() => {
+    if (Object.keys(nominations).length === 5) {
+      setIsFiveNominations(true);
+    } else if (Object.keys(nominations).length < 5) {
+      setIsFiveNominations(false);
+    }
+  }, [nominations]);
 
   return (
     <Box
@@ -116,33 +122,16 @@ function App() {
       <Box
         p={1}
         className="Alert-Banner-5movies"
-        display={isFiveNominationsBanner ? "" : "None"}
+        display={isFiveNominations ? "" : "None"}
       >
-        {isFiveNominationsBanner && (
+        {isFiveNominations && (
           <Alert
             severity="success"
             onClose={() => {
-              setIsFiveNominationsBanner(false);
+              setIsFiveNominations(false);
             }}
           >
             You have nominated 5 movies!
-          </Alert>
-        )}
-      </Box>
-      <Box
-        p={1}
-        className="Alert-Banner-Reached-Max"
-        display={isReachedMaxNominations ? "" : "None"}
-      >
-        {isReachedMaxNominations && (
-          <Alert
-            severity="error"
-            onClose={() => {
-              setIsReachedMaxNominations(false);
-            }}
-          >
-            You have reached the maximum amount of movie nominations. To add a
-            movie, please remove another movie!
           </Alert>
         )}
       </Box>
@@ -171,6 +160,7 @@ function App() {
                   nominations={nominations}
                   page={page}
                   handlePageChange={handlePageChange}
+                  isFiveNominations={isFiveNominations}
                 />
               </Box>
             </Paper>
@@ -185,7 +175,7 @@ function App() {
                   Nominations List ({5 - Object.keys(nominations).length}{" "}
                   Remaining)
                 </h3>
-                <NominationsResults
+                <NominationsList
                   nominations={nominations}
                   removeNomination={removeNomination}
                 />
