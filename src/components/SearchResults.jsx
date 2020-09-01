@@ -32,7 +32,7 @@ export function SearchResults({
   isFiveNominations,
 }) {
   const classes = useStyles();
-  // instruction that the search key needs to be longer than 2 characters
+  // display instruction that the search key needs to be longer than 2 characters
   if (searchKey.length < 3) {
     return (
       <div>
@@ -63,7 +63,7 @@ export function SearchResults({
         </p>
       </Box>
     );
-    // display search results - button disabled if movie is nominated or have reached 5 nominations
+    // display search results - button disabled if movie is nominated or have reached 5 nominations. pagination included
   } else {
     return (
       <div>

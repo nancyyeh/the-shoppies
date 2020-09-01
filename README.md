@@ -19,6 +19,7 @@ GitHub Pages: placeholder
 - Save nomination lists if the user leaves the page (using local storage) - completed Aug 24
 - Input API key - completed Aug 25
 - Added Pagination for research results - completed Aug 30
+- Animated snackbar alert - completed Sep 1st
 
 # 🖥️ Tech
 
@@ -29,9 +30,7 @@ GitHub Pages: placeholder
 
 # 🛠️ Future Improvements
 
-- Load more / Infinite Scroll for more movies
-- Animations for loading, adding/deleting movies, notifications
-- Create shareable links
+- Update layout to show all movies on top with blocks and posters / search bar and search results below
 
 # 🚀 License
 

@@ -4,10 +4,10 @@ import { SearchBar } from "./components/SearchBar";
 import { ApiSettingsButton } from "./components/ApiSettingsButton";
 import { NominationsList } from "./components/NominationList";
 import { SearchResults } from "./components/SearchResults";
+import { PositionedSnackbar } from "./components/Snackbar";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
 
 function App() {
   const [searchKey, setSearchKey] = useState("");
@@ -19,6 +19,7 @@ function App() {
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
+
   const [isFiveNominations, setIsFiveNominations] = useState(false);
 
   // API Key is currently hard coded in
@@ -119,22 +120,6 @@ function App() {
       >
         <ApiSettingsButton apikey={apikey} setApiKey={setApiKey} />
       </Box>
-      <Box
-        p={1}
-        className="Alert-Banner-5movies"
-        display={isFiveNominations ? "" : "None"}
-      >
-        {isFiveNominations && (
-          <Alert
-            severity="success"
-            onClose={() => {
-              setIsFiveNominations(false);
-            }}
-          >
-            You have nominated 5 movies!
-          </Alert>
-        )}
-      </Box>
       <Box p={1}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -184,6 +169,7 @@ function App() {
           </Grid>
         </Grid>
       </Box>
+      <PositionedSnackbar isFiveNominations={isFiveNominations} />
     </Box>
   );
 }
