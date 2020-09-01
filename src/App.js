@@ -19,9 +19,7 @@ function App() {
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
-
   const [isFiveNominations, setIsFiveNominations] = useState(false);
-
   // API Key is currently hard coded in
   const [apikey, setApiKey] = useState(
     localStorage.getItem("apikey") || "cbf06e88"
