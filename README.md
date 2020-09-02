@@ -31,6 +31,7 @@ GitHub Pages: placeholder
 # 🛠️ Future Improvements
 
 - Update layout to show all movies on top with blocks and posters / search bar and search results below
+- Debounce on search so it doesn't overload the
 
 # 🚀 License
 

@@ -4,14 +4,8 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { IconButton, Button } from "@material-ui/core";
 import { ApiSettingsModal } from "./ApiSettingsModal";
 
-export function ApiSettingsButton({ apikey, setApiKey }) {
+export function ApiSettingsButton({ apikey, onApiChange }) {
   const [showApiSetting, setShowApiSetting] = useState(false);
-
-  // set API Key to local storage
-  const onSetApiKey = (apikey) => {
-    setApiKey(apikey);
-    localStorage.setItem("apikey", apikey);
-  };
 
   // open API key settings
   const handleClickOpen = () => {
@@ -66,7 +60,7 @@ export function ApiSettingsButton({ apikey, setApiKey }) {
           setShowApiSetting(false);
         }}
         value={apikey}
-        onSetApiKey={onSetApiKey}
+        onApiChange={onApiChange}
       />
     </>
   );

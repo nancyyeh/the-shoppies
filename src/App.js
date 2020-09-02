@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
 import { ApiSettingsButton } from "./components/ApiSettingsButton";
@@ -8,6 +8,7 @@ import { PositionedSnackbar } from "./components/Snackbar";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
+import _ from "lodash";
 
 function App() {
   const [searchKey, setSearchKey] = useState("");
@@ -24,6 +25,12 @@ function App() {
   const [apikey, setApiKey] = useState(
     localStorage.getItem("apikey") || "cbf06e88"
   );
+
+  // set api key and update in local storage
+  const onApiChange = (apikey) => {
+    setApiKey(apikey);
+    localStorage.setItem("apikey", apikey);
+  };
 
   // set nominations to local storage
   const onSetNomination = (nominations) => {
@@ -49,10 +56,21 @@ function App() {
   // when page number changes
   const handlePageChange = (event, value) => {
     setPage(value);
+    sendQuery(searchKey, value);
   };
 
-  // fetch movie list if keyword search is longer than 2 characters
-  useEffect(() => {
+  // debounce - delay query to 300m to not over load the fetch
+  const delayedQuery = useCallback(
+    _.debounce((searchKey) => sendQuery(searchKey), 300),
+    []
+  );
+  const onSearchChange = (e) => {
+    setSearchKey(e.target.value);
+    delayedQuery(e.target.value);
+  };
+
+  // send query to fetch movie list if keyword search is longer than 2 characters
+  const sendQuery = (searchKey, page) => {
     const url =
       "http://www.omdbapi.com/?apikey=" +
       apikey +
@@ -87,7 +105,12 @@ function App() {
           }
         );
     }
-  }, [searchKey, page, apikey]);
+  };
+
+  // when api key changes - run query again
+  useEffect(() => {
+    sendQuery(searchKey, page);
+  }, [apikey]);
 
   // update if nominations num changes. if hits 5 show alert
   useEffect(() => {
@@ -116,18 +139,13 @@ function App() {
         top={18}
         right={18}
       >
-        <ApiSettingsButton apikey={apikey} setApiKey={setApiKey} />
+        <ApiSettingsButton apikey={apikey} onApiChange={onApiChange} />
       </Box>
       <Box p={1}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper>
-              <SearchBar
-                onChange={(e) => {
-                  setSearchKey(e.target.value);
-                }}
-                value={searchKey}
-              />
+              <SearchBar onChange={onSearchChange} value={searchKey} />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>

@@ -7,7 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export function ApiSettingsModal({ isOpen, onClose, onSetApiKey, value }) {
+export function ApiSettingsModal({ isOpen, onClose, onApiChange, value }) {
   const [input, setInput] = useState(value);
 
   const handleClose = () => {
@@ -16,7 +16,7 @@ export function ApiSettingsModal({ isOpen, onClose, onSetApiKey, value }) {
 
   const updatedValue = () => {
     onClose();
-    onSetApiKey(input);
+    onApiChange(input);
   };
 
   return (
