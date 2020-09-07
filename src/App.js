@@ -80,7 +80,7 @@ function App() {
       "https://www.omdbapi.com/?apikey=" +
       apikey +
       "&s=" +
-      searchKey +
+      searchKey.trim() +
       "&page=" +
       page +
       "&type=movie";
@@ -192,7 +192,7 @@ function App() {
                     onClick={handleResetNominations}
                     aria-label="reset nominations"
                   >
-                    Reset
+                    Restart
                   </Button>
                 )}
               </Box>
