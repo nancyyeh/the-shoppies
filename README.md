@@ -24,7 +24,7 @@ GitHub Pages: https://nancyyeh.github.io/the-shoppies/
 - Added Pagination for search results ✅ Aug 30
 - Animated snackbar alert ✅ Sep 1
 - Debounce on search so it doesn't overload the search query ✅ Sep 2
-- Included a reset button when five films has been selected, to restart and remove all nomination selections ✅ Sep 7
+- Included a Restart button when five films has been selected, to restart and remove all nomination selections and can be used as submit button for future improvements ✅ Sep 7
 
 # 🖥️ Tech
 
@@ -36,8 +36,7 @@ GitHub Pages: https://nancyyeh.github.io/the-shoppies/
 # 🛠️ Future Improvements
 
 - Update layout to show all movies on top with blocks and posters / search bar and search results below
-- more animations
-- show posters
+- Create a submit button
 
 # 🚀 License
 
