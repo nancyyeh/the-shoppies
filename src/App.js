@@ -77,7 +77,7 @@ function App() {
   // send query to fetch movie list if keyword search is longer than 2 characters
   const sendQuery = (searchKey, page) => {
     const url =
-      "http://www.omdbapi.com/?apikey=" +
+      "https://www.omdbapi.com/?apikey=" +
       apikey +
       "&s=" +
       searchKey +
