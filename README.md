@@ -2,7 +2,8 @@
 
 An app to help manage movie nomination for the upcoming Shoppies
 
-GitHub Pages: placeholder
+GitHub Pages: https://nancyyeh.github.io/the-shoppies/
+![](public/Main.gif)
 
 # 💭 Design Decisions
 
