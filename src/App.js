@@ -7,7 +7,7 @@ import { SearchResults } from "./components/SearchResults";
 import { PositionedSnackbar } from "./components/Snackbar";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import _ from "lodash";
 
 function App() {
@@ -57,6 +57,11 @@ function App() {
   const handlePageChange = (event, value) => {
     setPage(value);
     sendQuery(searchKey, value);
+  };
+
+  // handle reset nomatinations - clear all nomaintions
+  const handleResetNominations = () => {
+    onSetNomination({});
   };
 
   // debounce - delay query to 300m to not over load the fetch
@@ -116,7 +121,7 @@ function App() {
   useEffect(() => {
     if (Object.keys(nominations).length === 5) {
       setIsFiveNominations(true);
-    } else if (Object.keys(nominations).length < 5) {
+    } else {
       setIsFiveNominations(false);
     }
   }, [nominations]);
@@ -180,6 +185,16 @@ function App() {
                   nominations={nominations}
                   removeNomination={removeNomination}
                 />
+                {isFiveNominations && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleResetNominations}
+                    aria-label="reset nominations"
+                  >
+                    Reset
+                  </Button>
+                )}
               </Box>
             </Paper>
           </Grid>
