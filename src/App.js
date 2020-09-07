@@ -178,7 +178,7 @@ function App() {
                   <span role="img" aria-label="throphy">
                     🏆
                   </span>{" "}
-                  Nominations List ({5 - Object.keys(nominations).length}{" "}
+                  Nominations List!!! ({5 - Object.keys(nominations).length}{" "}
                   Remaining)
                 </h3>
                 <NominationsList
