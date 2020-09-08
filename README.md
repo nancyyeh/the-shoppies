@@ -36,7 +36,8 @@ GitHub Pages: https://nancyyeh.github.io/the-shoppies/
 # 🛠️ Future Improvements
 
 - Update layout to show all movies on top with blocks and posters / search bar and search results below
-- Create a submit button
+- Submit the nomination
+- Share the submissin
 
 # 🚀 License
 
