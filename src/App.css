@@ -1,7 +1,12 @@
 .App {
   text-align: center;
   justify-content: center;
-  background-color: #ebebeb;
+  background-color: #131316;
   height: 100vh;
   max-height: 100%;
+}
+
+.Header {
+  color: #f2c144;
+  font-size: 96px;
 }

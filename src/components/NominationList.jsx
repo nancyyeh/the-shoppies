@@ -7,7 +7,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import MovieIcon from "@material-ui/icons/Movie";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { IconButton, Avatar } from "@material-ui/core";
 
 export function NominationsList({ nominations, removeNomination }) {
@@ -41,7 +41,7 @@ export function NominationsList({ nominations, removeNomination }) {
                   aria-label="remove"
                   onClick={() => removeNomination(movie.imdbID)}
                 >
-                  <DeleteIcon />
+                  <DeleteForeverIcon />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>

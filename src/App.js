@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
 import { ApiSettingsButton } from "./components/ApiSettingsButton";
@@ -9,6 +10,21 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Box, Button } from "@material-ui/core";
 import _ from "lodash";
+
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#f2c144",
+    },
+    secondary: {
+      main: "#11cb5f",
+    },
+    background: {
+      paper: "#15161A",
+    },
+  },
+});
 
 function App() {
   const [searchKey, setSearchKey] = useState("");
@@ -64,9 +80,9 @@ function App() {
     onSetNomination({});
   };
 
-  // debounce - delay query to 300m to not over load the fetch
+  // debounce - delay query to 200m to not over load the fetch
   const delayedQuery = useCallback(
-    _.debounce((searchKey) => sendQuery(searchKey), 300),
+    _.debounce((searchKey) => sendQuery(searchKey), 200),
     []
   );
   const onSearchChange = (e) => {
@@ -127,81 +143,78 @@ function App() {
   }, [nominations]);
 
   return (
-    <Box
-      className="App"
-      display="flex"
-      flexDirection="column"
-      justifyContent="flex-start"
-      p={3}
-    >
-      <Box p={2} className="Header">
-        <img src="shoppies_logo.png" alt="shoppies logo" width="70%" />
-      </Box>
+    <ThemeProvider theme={theme}>
       <Box
-        m={2}
-        className="API-settings"
-        position="absolute"
-        top={18}
-        right={18}
+        className="App"
+        display="flex"
+        flexDirection="column"
+        justifyContent="flex-start"
+        p={3}
       >
-        <ApiSettingsButton apikey={apikey} onApiChange={onApiChange} />
+        <Box p={2} className="Header">
+          <img src="shoppies_logo.png" alt="The Shoppies" width="70%" />
+        </Box>
+        <Box
+          m={2}
+          className="API-settings"
+          position="absolute"
+          top={18}
+          right={18}
+        >
+          <ApiSettingsButton apikey={apikey} onApiChange={onApiChange} />
+        </Box>
+        <Box p={1}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={8}>
+              <Paper>
+                <Box p={1}>
+                  <SearchBar onChange={onSearchChange} value={searchKey} />
+                  <SearchResults
+                    searchKey={searchKey}
+                    isError={isError}
+                    error={error}
+                    numResult={numResult}
+                    addNomination={addNomination}
+                    movieData={movieData}
+                    nominations={nominations}
+                    page={page}
+                    handlePageChange={handlePageChange}
+                    isFiveNominations={isFiveNominations}
+                  />
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <Paper>
+                <Box p={1}>
+                  <h3>
+                    <span role="img" aria-label="throphy">
+                      🏆
+                    </span>{" "}
+                    Nominee ({5 - Object.keys(nominations).length} Remaining)
+                  </h3>
+                  <NominationsList
+                    nominations={nominations}
+                    removeNomination={removeNomination}
+                  />
+                  {isFiveNominations && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleResetNominations}
+                      aria-label="reset nominations"
+                    >
+                      Restart
+                    </Button>
+                  )}
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Box>
+        <PositionedSnackbar isFiveNominations={isFiveNominations} />
       </Box>
-      <Box p={1}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper>
-              <SearchBar onChange={onSearchChange} value={searchKey} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Paper>
-              <Box p={1}>
-                <SearchResults
-                  searchKey={searchKey}
-                  isError={isError}
-                  error={error}
-                  numResult={numResult}
-                  addNomination={addNomination}
-                  movieData={movieData}
-                  nominations={nominations}
-                  page={page}
-                  handlePageChange={handlePageChange}
-                  isFiveNominations={isFiveNominations}
-                />
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Paper>
-              <Box p={1}>
-                <h3>
-                  <span role="img" aria-label="throphy">
-                    🏆
-                  </span>{" "}
-                  Nominations List ({5 - Object.keys(nominations).length}{" "}
-                  Remaining)
-                </h3>
-                <NominationsList
-                  nominations={nominations}
-                  removeNomination={removeNomination}
-                />
-                {isFiveNominations && (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleResetNominations}
-                    aria-label="reset nominations"
-                  >
-                    Restart
-                  </Button>
-                )}
-              </Box>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Box>
-      <PositionedSnackbar isFiveNominations={isFiveNominations} />
-    </Box>
+    </ThemeProvider>
   );
 }
 
