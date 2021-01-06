@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { Box, Grid, Paper } from "@material-ui/core";
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
-import { ApiSettingsButton } from "./components/ApiSettingsButton";
 import { NominationsList } from "./components/NominationList";
 import { SearchResults } from "./components/SearchResults";
+import { ApiSettingsButton } from "./components/ApiSettingsButton";
 import { PositionedSnackbar } from "./components/Snackbar";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import { Box, Button } from "@material-ui/core";
 import _ from "lodash";
 
 const theme = createMuiTheme({
@@ -154,7 +152,7 @@ function App() {
         <Box p={2} className="Header">
           <img src="shoppies_logo.png" alt="The Shoppies" width="70%" />
         </Box>
-        <Box
+        {/* <Box
           m={2}
           className="API-settings"
           position="absolute"
@@ -162,12 +160,30 @@ function App() {
           right={18}
         >
           <ApiSettingsButton apikey={apikey} onApiChange={onApiChange} />
-        </Box>
-        <Box p={1}>
-          <Grid container spacing={3}>
+        </Box> */}
+        <Box>
+          <Grid container direction="row-reverse" spacing={3}>
+            <Grid item xs={12} sm={12} md={4}>
+              <Paper>
+                <Box p={2}>
+                  <h3>
+                    <span role="img" aria-label="throphy">
+                      🏆
+                    </span>{" "}
+                    Nominee ({5 - Object.keys(nominations).length} Remaining)
+                  </h3>
+                  <NominationsList
+                    nominations={nominations}
+                    removeNomination={removeNomination}
+                    isFiveNominations={isFiveNominations}
+                    handleResetNominations={handleResetNominations}
+                  />
+                </Box>
+              </Paper>
+            </Grid>
             <Grid item xs={12} sm={12} md={8}>
               <Paper>
-                <Box p={1}>
+                <Box p={2}>
                   <SearchBar onChange={onSearchChange} value={searchKey} />
                   <SearchResults
                     searchKey={searchKey}
@@ -184,35 +200,9 @@ function App() {
                 </Box>
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <Paper>
-                <Box p={1}>
-                  <h3>
-                    <span role="img" aria-label="throphy">
-                      🏆
-                    </span>{" "}
-                    Nominee ({5 - Object.keys(nominations).length} Remaining)
-                  </h3>
-                  <NominationsList
-                    nominations={nominations}
-                    removeNomination={removeNomination}
-                  />
-                  {isFiveNominations && (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleResetNominations}
-                      aria-label="reset nominations"
-                    >
-                      Restart
-                    </Button>
-                  )}
-                </Box>
-              </Paper>
-            </Grid>
           </Grid>
         </Box>
-        <PositionedSnackbar isFiveNominations={isFiveNominations} />
+        {/* <PositionedSnackbar isFiveNominations={isFiveNominations} /> */}
       </Box>
     </ThemeProvider>
   );

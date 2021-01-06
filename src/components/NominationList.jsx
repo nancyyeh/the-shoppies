@@ -5,23 +5,34 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
+  Box,
+  IconButton,
+  Avatar,
+  Button,
+  Typography,
 } from "@material-ui/core";
 import MovieIcon from "@material-ui/icons/Movie";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { IconButton, Avatar } from "@material-ui/core";
+import { CompletedNotification } from "./CompletedNotification";
 
-export function NominationsList({ nominations, removeNomination }) {
+export function NominationsList({
+  nominations,
+  removeNomination,
+  isFiveNominations,
+  handleResetNominations,
+}) {
   if (Object.keys(nominations).length === 0) {
     return (
-      <div>
-        <p>
-          Add something to the nomination list... <br />
-        </p>
-      </div>
+      <Box>
+        <img src="award.png" alt="Movie Award" width="70%" />
+        <Typography variant="h5">No nominations yet! </Typography>
+        <Typography>Select 5 of your favorite movies to the list.</Typography>
+      </Box>
     );
   } else {
     return (
-      <div>
+      <Box>
+        <CompletedNotification isFiveNominations={isFiveNominations} />
         <List dense={true}>
           {Object.values(nominations).map((movie) => (
             <ListItem key={movie.imdbID}>
@@ -47,7 +58,17 @@ export function NominationsList({ nominations, removeNomination }) {
             </ListItem>
           ))}
         </List>
-      </div>
+        {isFiveNominations && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleResetNominations}
+            aria-label="reset nominations"
+          >
+            Submit
+          </Button>
+        )}
+      </Box>
     );
   }
 }
