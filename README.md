@@ -37,10 +37,18 @@ GitHub Pages: https://nancyyeh.github.io/the-shoppies/
 
 # 🛠️ Future Improvements
 
-- Backend to hide API key for OMDB as this creates secruity risk
-- Link to submission API
-- Share the submission
+- Include a backend to hide API key for OMDB as this creates secruity risk
+- Link the nominations to a submission API
+- Add social share buttons after submission
 
-# 🚀 License
+# 🚀 Deployment
+
+To run
+
+> npm start
+
+To deploy
+
+> npm run deploy
 
 MIT license
