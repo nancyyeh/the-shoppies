@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Box, Grid, Paper } from "@material-ui/core";
+import { Box, Grid, Paper, makeStyles } from "@material-ui/core";
+import _ from "lodash";
+
 import { SearchBar } from "./components/SearchBar";
 import { Nominations } from "./components/Nominations";
 import { SearchResults } from "./components/SearchResults";
-import _ from "lodash";
-import { makeStyles } from "@material-ui/core/styles";
 import { ViewCodeButton } from "./components/ViewCodeButton";
 
 const useStyles = makeStyles((theme) => ({
