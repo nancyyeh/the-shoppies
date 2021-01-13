@@ -3,7 +3,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Box, Grid, Paper } from "@material-ui/core";
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
-import { NominationsList } from "./components/NominationList";
+import { Nominations } from "./components/Nominations";
 import { SearchResults } from "./components/SearchResults";
 import { ApiSettingsButton } from "./components/ApiSettingsButton";
 import { PositionedSnackbar } from "./components/Snackbar";
@@ -172,7 +172,7 @@ function App() {
                     </span>{" "}
                     Nominee ({5 - Object.keys(nominations).length} Remaining)
                   </h3>
-                  <NominationsList
+                  <Nominations
                     nominations={nominations}
                     removeNomination={removeNomination}
                     isFiveNominations={isFiveNominations}

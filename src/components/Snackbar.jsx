@@ -1,5 +1,5 @@
 import React from "react";
-import Snackbar from "@material-ui/core/Snackbar";
+import { Snackbar, Box } from "@material-ui/core/";
 import Alert from "@material-ui/lab/Alert";
 import { useEffect } from "react";
 import Slide from "@material-ui/core/Slide";
@@ -27,7 +27,7 @@ export function PositionedSnackbar({ isFiveNominations }) {
   };
 
   return (
-    <div>
+    <Box>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={open}
@@ -39,6 +39,6 @@ export function PositionedSnackbar({ isFiveNominations }) {
           You have nominated 5 movies!
         </Alert>
       </Snackbar>
-    </div>
+    </Box>
   );
 }

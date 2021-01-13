@@ -27,7 +27,7 @@ export function SearchResults({
   // display instruction that the search key needs to be longer than 2 characters
   if (searchKey.length < 3) {
     return (
-      <div>
+      <Box>
         <h3>
           <span role="img" aria-label="find">
             🔍
@@ -35,7 +35,7 @@ export function SearchResults({
           Find a movie in the search bar above!
         </h3>
         <p>The keyword needs to be longer than 2 characters</p>
-      </div>
+      </Box>
     );
     // display search error
   } else if (isError === true) {
@@ -59,7 +59,7 @@ export function SearchResults({
     // display search results - button disabled if movie is nominated or have reached 5 nominations. pagination included
   } else {
     return (
-      <div>
+      <Box>
         <h3>
           <span role="img" aria-label="film">
             🎞️
@@ -80,7 +80,7 @@ export function SearchResults({
           count={Math.ceil(numResult / 10)}
           className={classes.pagination}
         />
-      </div>
+      </Box>
     );
   }
 }

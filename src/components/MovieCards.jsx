@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Box } from "@material-ui/core";
-import { Grid, Typography } from "@material-ui/core";
+import { Button, Box, Grid, Typography } from "@material-ui/core";
 import MovieIcon from "@material-ui/icons/Movie";
 import { makeStyles } from "@material-ui/core/styles";
 import { grey } from "@material-ui/core/colors";
@@ -40,7 +39,6 @@ export function MovieCards({
   isFiveNominations,
 }) {
   const classes = useStyles();
-  // display instruction that the search key needs to be longer than 2 characters
   return (
     <Grid container justify="space-evenly" spacing={2}>
       {Object.values(movieData).map((movie) => {

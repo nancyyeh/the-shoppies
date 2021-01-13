@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Collapse, Typography } from "@material-ui/core";
+import { Box, Collapse, Typography } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { useEffect } from "react";
 
@@ -16,7 +16,7 @@ export function CompletedNotification({ isFiveNominations }) {
   return (
     <Box>
       <Collapse in={open}>
-        <Alert severity="success" variant="filled">
+        <Alert severity="info" variant="filled">
           <AlertTitle>
             <Typography align="left">
               <strong>All done!</strong>
