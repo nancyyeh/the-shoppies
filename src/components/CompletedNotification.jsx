@@ -1,21 +1,11 @@
 import React from "react";
 import { Box, Collapse, Typography } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { useEffect } from "react";
 
-export function CompletedNotification({ isFiveNominations }) {
-  const [open, setOpen] = React.useState(false);
-  useEffect(() => {
-    if (isFiveNominations) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  }, [isFiveNominations]);
-
+export function CompletedNotification({ show }) {
   return (
     <Box>
-      <Collapse in={open}>
+      <Collapse in={show}>
         <Alert severity="info" variant="filled">
           <AlertTitle>
             <Typography align="left">

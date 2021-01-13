@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Snackbar, Typography, Slide } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
+const SIX_SECONDS = 6000;
+
 export function SuccessNotification({ isNominationSubmit, onClose }) {
   function SlideTransition(props) {
     return <Slide {...props} direction="down" />;
@@ -20,7 +22,7 @@ export function SuccessNotification({ isNominationSubmit, onClose }) {
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={isNominationSubmit}
-        autoHideDuration={6000}
+        autoHideDuration={SIX_SECONDS}
         TransitionComponent={SlideTransition}
         onClose={handleClose}
       >

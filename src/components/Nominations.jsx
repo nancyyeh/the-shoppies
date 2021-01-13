@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Typography } from "@material-ui/core";
+
 import { CompletedNotification } from "./CompletedNotification";
 import { SuccessNotification } from "./SuccessNotification";
 import { NominationsMovieList } from "./NominationsMovieList";
@@ -7,10 +8,10 @@ import { NominationsMovieList } from "./NominationsMovieList";
 export function Nominations({
   nominations,
   removeNomination,
-  isFiveNominations,
   handleResetNominations,
 }) {
   const [isNominationSubmit, setIsNominationSubmit] = useState(false);
+  const canSubmit = Object.keys(nominations).length === 5;
 
   if (Object.keys(nominations).length === 0) {
     return (
@@ -24,28 +25,30 @@ export function Nominations({
         <Typography>Select 5 of your favorite movies to the list.</Typography>
       </Box>
     );
-  } else {
-    return (
-      <Box>
-        <CompletedNotification isFiveNominations={isFiveNominations} />
-        <NominationsMovieList
-          nominations={nominations}
-          removeNomination={removeNomination}
-        />
-        {isFiveNominations && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setIsNominationSubmit(true);
-              handleResetNominations();
-            }}
-            aria-label="reset nominations"
-          >
-            Submit
-          </Button>
-        )}
-      </Box>
-    );
   }
+
+  return (
+    <Box>
+      <CompletedNotification show={canSubmit} />
+
+      <NominationsMovieList
+        nominations={nominations}
+        removeNomination={removeNomination}
+      />
+
+      {canSubmit && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            setIsNominationSubmit(true);
+            handleResetNominations();
+          }}
+          aria-label="reset nominations"
+        >
+          Submit
+        </Button>
+      )}
+    </Box>
+  );
 }

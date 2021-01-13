@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Box, Grid, Paper } from "@material-ui/core";
 import "./App.css";
@@ -32,7 +32,6 @@ function App() {
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
-  const [isFiveNominations, setIsFiveNominations] = useState(false);
 
   // set nominations to local storage
   const onSetNomination = (nominations) => {
@@ -42,10 +41,8 @@ function App() {
 
   // Add movie from nominmation list
   const addNomination = (imdbID) => {
-    if (Object.keys(nominations).length < 5) {
-      const newNomination = movieData[imdbID];
-      onSetNomination({ ...nominations, [imdbID]: newNomination });
-    }
+    const newNomination = movieData[imdbID];
+    onSetNomination({ ...nominations, [imdbID]: newNomination });
   };
 
   // Remove movie from nominmation list
@@ -72,20 +69,14 @@ function App() {
     []
   );
   const onSearchChange = (e) => {
-    setSearchKey(e.target.value);
-    delayedQuery(e.target.value);
+    const searchKey = e.target.value;
+    setSearchKey(searchKey);
+    delayedQuery(searchKey);
   };
 
   // send query to fetch movie list if keyword search is longer than 2 characters
   const sendQuery = (searchKey, page) => {
-    const url =
-      "https://www.omdbapi.com/?apikey=" +
-      "cbf06e88" +
-      "&s=" +
-      searchKey.trim() +
-      "&page=" +
-      page +
-      "&type=movie";
+    const url = `https://www.omdbapi.com/?apikey=cbf06e88&s=${searchKey.trim()}&page=${page}&type=movie`;
     if (searchKey.length > 2) {
       fetch(url, {
         method: "GET",
@@ -114,10 +105,6 @@ function App() {
     }
   };
 
-      setIsFiveNominations(false);
-    }
-  }, [nominations]);
-
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -145,10 +132,10 @@ function App() {
                     </span>{" "}
                     Nominee ({5 - Object.keys(nominations).length} Remaining)
                   </h3>
+
                   <Nominations
                     nominations={nominations}
                     removeNomination={removeNomination}
-                    isFiveNominations={isFiveNominations}
                     handleResetNominations={handleResetNominations}
                   />
                 </Box>
@@ -158,6 +145,7 @@ function App() {
               <Paper>
                 <Box p={2}>
                   <SearchBar onChange={onSearchChange} value={searchKey} />
+
                   <SearchResults
                     searchKey={searchKey}
                     isError={isError}
@@ -168,7 +156,6 @@ function App() {
                     nominations={nominations}
                     page={page}
                     handlePageChange={handlePageChange}
-                    isFiveNominations={isFiveNominations}
                   />
                 </Box>
               </Paper>

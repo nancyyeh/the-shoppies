@@ -32,13 +32,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function MovieCards({
-  movieData,
-  nominations,
-  addNomination,
-  isFiveNominations,
-}) {
+export function MovieCards({ movieData, nominations, addNomination }) {
   const classes = useStyles();
+  const numNominations = Object.keys(nominations).length;
+
   return (
     <Grid container justify="space-evenly" spacing={2}>
       {Object.values(movieData).map((movie) => {
@@ -98,7 +95,7 @@ export function MovieCards({
                       <Button
                         variant="contained"
                         onClick={() => addNomination(movie.imdbID)}
-                        disabled={isNominated || isFiveNominations}
+                        disabled={isNominated || numNominations === 5}
                         color="primary"
                       >
                         {isNominated ? "Nominated!" : "Nominate"}
