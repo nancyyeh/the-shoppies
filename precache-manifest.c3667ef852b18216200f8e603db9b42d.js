@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5a9d414a27622c4c6d17224afce6eab7",
+    "revision": "cd7481615e761c86d80a974481eaaaf8",
     "url": "/the-shoppies/index.html"
   },
   {
-    "revision": "4e79049cb242facbd1ee",
+    "revision": "1d435eb413798e0aa8e0",
     "url": "/the-shoppies/static/css/main.723c2554.chunk.css"
   },
   {
-    "revision": "b935207bd39a3d19bf75",
-    "url": "/the-shoppies/static/js/2.d3ed1ca7.chunk.js"
+    "revision": "f40716d4f9ea9aac599a",
+    "url": "/the-shoppies/static/js/2.e5090713.chunk.js"
   },
   {
     "revision": "68ba00d5eb083746d913686923a3d904",
-    "url": "/the-shoppies/static/js/2.d3ed1ca7.chunk.js.LICENSE.txt"
+    "url": "/the-shoppies/static/js/2.e5090713.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4e79049cb242facbd1ee",
-    "url": "/the-shoppies/static/js/main.69fbad5c.chunk.js"
+    "revision": "1d435eb413798e0aa8e0",
+    "url": "/the-shoppies/static/js/main.f2493d07.chunk.js"
   },
   {
     "revision": "7f717e5177a62183cc17",
