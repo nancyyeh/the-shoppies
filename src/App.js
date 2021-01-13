@@ -150,7 +150,11 @@ function App() {
         p={3}
       >
         <Box p={2} className="Header">
-          <img src="shoppies_logo.png" alt="The Shoppies" width="70%" />
+          <img
+            src="/the-shoppies/shoppies_logo.png"
+            alt="The Shoppies"
+            width="70%"
+          />
         </Box>
         {/* <Box
           m={2}

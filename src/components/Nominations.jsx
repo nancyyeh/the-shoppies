@@ -19,7 +19,7 @@ export function Nominations({
           isNominationSubmit={isNominationSubmit}
           onClose={() => setIsNominationSubmit(false)}
         />
-        <img src="public/award.png" alt="Movie Award" width="70%" />
+        <img src="/the-shoppies/award.png" alt="Movie Award" width="70%" />
         <h3>No nominations yet! </h3>
         <Typography>Select 5 of your favorite movies to the list.</Typography>
       </Box>
