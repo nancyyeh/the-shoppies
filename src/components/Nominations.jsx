@@ -1,35 +1,47 @@
 import React, { useState } from "react";
-import { Box, Button, Typography } from "@material-ui/core";
+import { Box, Button, Typography, makeStyles } from "@material-ui/core";
 
-import { CompletedNotification } from "./CompletedNotification";
-import { SuccessNotification } from "./SuccessNotification";
+import { ReachedFiveNotification } from "./ReachedFiveNotification";
+import { SubmittedNotification } from "./SubmittedNotification";
 import { NominationsMovieList } from "./NominationsMovieList";
+
+const useStyles = makeStyles((theme) => ({
+  img: {
+    maxWidth: 300,
+  },
+}));
 
 export function Nominations({
   nominations,
   removeNomination,
   handleResetNominations,
 }) {
+  const classes = useStyles();
   const [isNominationSubmit, setIsNominationSubmit] = useState(false);
   const canSubmit = Object.keys(nominations).length === 5;
 
   if (Object.keys(nominations).length === 0) {
     return (
       <Box>
-        <SuccessNotification
+        <SubmittedNotification
           isNominationSubmit={isNominationSubmit}
           onClose={() => setIsNominationSubmit(false)}
         />
-        <img src="/the-shoppies/award.png" alt="Movie Award" width="70%" />
+        <img
+          src="/the-shoppies/award.png"
+          alt="Movie Award"
+          className={classes.img}
+          width="70%"
+        />
         <h3>No nominations yet! </h3>
-        <Typography>Select 5 of your favorite movies to the list.</Typography>
+        <Typography>Add 5 of your favorite movies to the list.</Typography>
       </Box>
     );
   }
 
   return (
     <Box>
-      <CompletedNotification show={canSubmit} />
+      <ReachedFiveNotification show={canSubmit} />
 
       <NominationsMovieList
         nominations={nominations}

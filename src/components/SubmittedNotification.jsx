@@ -4,7 +4,7 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 
 const SIX_SECONDS = 6000;
 
-export function SuccessNotification({ isNominationSubmit, onClose }) {
+export function SubmittedNotification({ isNominationSubmit, onClose }) {
   function SlideTransition(props) {
     return <Slide {...props} direction="down" />;
   }
@@ -33,7 +33,7 @@ export function SuccessNotification({ isNominationSubmit, onClose }) {
             </Typography>
           </AlertTitle>
           <Typography align="left">
-            Your nominations have been submited.
+            Your nominations have been submitted.
           </Typography>
         </Alert>
       </Snackbar>

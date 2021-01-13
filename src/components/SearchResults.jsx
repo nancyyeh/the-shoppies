@@ -1,9 +1,10 @@
 import React from "react";
-import { Box } from "@material-ui/core";
+import { Box, Hidden } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 
-import { MovieCards } from "./MovieCards";
+import { MovieCards } from "./SearchMovieCards";
+import { MovieList } from "./SearchMovieList";
 
 const useStyles = makeStyles((theme) => ({
   pagination: {
@@ -67,12 +68,20 @@ export function SearchResults({
         </span>{" "}
         Results for "{searchKey}" ({numResult})
       </h3>
-
-      <MovieCards
-        movieData={movieData}
-        nominations={nominations}
-        addNomination={addNomination}
-      />
+      <Hidden xsDown>
+        <MovieCards
+          movieData={movieData}
+          nominations={nominations}
+          addNomination={addNomination}
+        />
+      </Hidden>
+      <Hidden smUp>
+        <MovieList
+          movieData={movieData}
+          nominations={nominations}
+          addNomination={addNomination}
+        />
+      </Hidden>
 
       <Pagination
         page={page}

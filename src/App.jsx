@@ -6,6 +6,14 @@ import { SearchBar } from "./components/SearchBar";
 import { Nominations } from "./components/Nominations";
 import { SearchResults } from "./components/SearchResults";
 import _ from "lodash";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  nominations: {
+    position: "sticky",
+    top: 20,
+  },
+}));
 
 const theme = createMuiTheme({
   palette: {
@@ -32,6 +40,7 @@ function App() {
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
+  const classes = useStyles();
 
   // set nominations to local storage
   const onSetNomination = (nominations) => {
@@ -124,7 +133,7 @@ function App() {
         <Box>
           <Grid container direction="row-reverse" spacing={3}>
             <Grid item xs={12} sm={12} md={4}>
-              <Paper>
+              <Paper className={classes.nominations}>
                 <Box p={2}>
                   <h3>
                     <span role="img" aria-label="throphy">
@@ -132,7 +141,6 @@ function App() {
                     </span>{" "}
                     Nominee ({5 - Object.keys(nominations).length} Remaining)
                   </h3>
-
                   <Nominations
                     nominations={nominations}
                     removeNomination={removeNomination}
@@ -141,6 +149,7 @@ function App() {
                 </Box>
               </Paper>
             </Grid>
+
             <Grid item xs={12} sm={12} md={8}>
               <Paper>
                 <Box p={2}>

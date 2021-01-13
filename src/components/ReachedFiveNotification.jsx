@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Collapse, Typography } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-export function CompletedNotification({ show }) {
+export function ReachedFiveNotification({ show }) {
   return (
     <Box>
       <Collapse in={show}>
