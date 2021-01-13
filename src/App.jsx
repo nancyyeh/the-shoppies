@@ -77,6 +77,8 @@ function App() {
     _.debounce((searchKey) => sendQuery(searchKey), 200),
     []
   );
+
+  // update search value
   const onSearchChange = (e) => {
     const searchKey = e.target.value;
     setSearchKey(searchKey);
@@ -114,6 +116,10 @@ function App() {
     }
   };
 
+  const clearSearch = () => {
+    setSearchKey("");
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -145,6 +151,7 @@ function App() {
                     nominations={nominations}
                     removeNomination={removeNomination}
                     handleResetNominations={handleResetNominations}
+                    clearSearch={clearSearch}
                   />
                 </Box>
               </Paper>

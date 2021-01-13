@@ -15,6 +15,7 @@ export function Nominations({
   nominations,
   removeNomination,
   handleResetNominations,
+  clearSearch,
 }) {
   const classes = useStyles();
   const [isNominationSubmit, setIsNominationSubmit] = useState(false);
@@ -55,6 +56,7 @@ export function Nominations({
           onClick={() => {
             setIsNominationSubmit(true);
             handleResetNominations();
+            clearSearch();
           }}
           aria-label="reset nominations"
         >

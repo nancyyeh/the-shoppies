@@ -38,6 +38,7 @@ export function MovieList({ movieData, nominations, addNomination }) {
                   disabled={isNominated || numNominations === 5}
                   color="primary"
                   size="small"
+                  edge="end"
                 >
                   {isNominated ? "Nominated!" : "Nominate"}
                 </Button>
