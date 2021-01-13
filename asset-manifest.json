@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/the-shoppies/static/css/main.381c446d.chunk.css",
-    "main.js": "/the-shoppies/static/js/main.135df036.chunk.js",
-    "main.js.map": "/the-shoppies/static/js/main.135df036.chunk.js.map",
+    "main.css": "/the-shoppies/static/css/main.b9e04d5f.chunk.css",
+    "main.js": "/the-shoppies/static/js/main.a76b23bb.chunk.js",
+    "main.js.map": "/the-shoppies/static/js/main.a76b23bb.chunk.js.map",
     "runtime-main.js": "/the-shoppies/static/js/runtime-main.71ad18d3.js",
     "runtime-main.js.map": "/the-shoppies/static/js/runtime-main.71ad18d3.js.map",
-    "static/js/2.66f74a4e.chunk.js": "/the-shoppies/static/js/2.66f74a4e.chunk.js",
-    "static/js/2.66f74a4e.chunk.js.map": "/the-shoppies/static/js/2.66f74a4e.chunk.js.map",
+    "static/js/2.95b090d7.chunk.js": "/the-shoppies/static/js/2.95b090d7.chunk.js",
+    "static/js/2.95b090d7.chunk.js.map": "/the-shoppies/static/js/2.95b090d7.chunk.js.map",
     "index.html": "/the-shoppies/index.html",
-    "precache-manifest.221007d6b132ee1e3c80430f533f6249.js": "/the-shoppies/precache-manifest.221007d6b132ee1e3c80430f533f6249.js",
+    "precache-manifest.79828aee91459a8bacc2b5e5bd93c3fe.js": "/the-shoppies/precache-manifest.79828aee91459a8bacc2b5e5bd93c3fe.js",
     "service-worker.js": "/the-shoppies/service-worker.js",
-    "static/css/main.381c446d.chunk.css.map": "/the-shoppies/static/css/main.381c446d.chunk.css.map",
-    "static/js/2.66f74a4e.chunk.js.LICENSE.txt": "/the-shoppies/static/js/2.66f74a4e.chunk.js.LICENSE.txt"
+    "static/css/main.b9e04d5f.chunk.css.map": "/the-shoppies/static/css/main.b9e04d5f.chunk.css.map",
+    "static/js/2.95b090d7.chunk.js.LICENSE.txt": "/the-shoppies/static/js/2.95b090d7.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.71ad18d3.js",
-    "static/js/2.66f74a4e.chunk.js",
-    "static/css/main.381c446d.chunk.css",
-    "static/js/main.135df036.chunk.js"
+    "static/js/2.95b090d7.chunk.js",
+    "static/css/main.b9e04d5f.chunk.css",
+    "static/js/main.a76b23bb.chunk.js"
   ]
 }
