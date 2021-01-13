@@ -7,7 +7,7 @@ import { NominationsMovieList } from "./NominationsMovieList";
 
 const useStyles = makeStyles((theme) => ({
   img: {
-    maxWidth: 300,
+    maxWidth: 280,
   },
 }));
 

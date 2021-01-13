@@ -45,10 +45,21 @@ GitHub Pages: https://nancyyeh.github.io/the-shoppies/
 
 To run
 
-> npm start
+```
+npm start
+```
 
 To deploy
 
-> npm run deploy
+```
+npm run deploy
+```
+
+# 📝 Licenses
 
 MIT license
+
+Images used:
+
+- emojis
+- Trophy on pedestals <a href="http://www.freepik.com">Designed by macrovector / Freepik</a>

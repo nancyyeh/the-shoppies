@@ -6,6 +6,7 @@ import { Nominations } from "./components/Nominations";
 import { SearchResults } from "./components/SearchResults";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
+import { ViewCodeButton } from "./components/ViewCodeButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -144,6 +145,15 @@ function App() {
             alt="The Shoppies"
             width="70%"
           />
+        </Box>
+        <Box
+          m={2}
+          className="API-settings"
+          position="absolute"
+          top={18}
+          right={18}
+        >
+          <ViewCodeButton />
         </Box>
         <Box>
           <Grid container direction="row-reverse" spacing={3}>
