@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Box, Grid, Paper } from "@material-ui/core";
-import "./App.css";
 import { SearchBar } from "./components/SearchBar";
 import { Nominations } from "./components/Nominations";
 import { SearchResults } from "./components/SearchResults";
@@ -9,9 +8,18 @@ import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: "#131316",
+    height: "100vh",
+    maxHeight: 1,
+  },
   nominations: {
     position: "sticky",
     top: 20,
+  },
+  header: {
+    color: "#f2c144",
+    fontSize: 96,
   },
 }));
 
@@ -123,13 +131,14 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box
-        className="App"
+        className={classes.root}
         display="flex"
         flexDirection="column"
         justifyContent="flex-start"
+        textAlign="center"
         p={3}
       >
-        <Box p={2} className="Header">
+        <Box p={2} className={classes.header}>
           <img
             src="/the-shoppies/shoppies_logo.png"
             alt="The Shoppies"
