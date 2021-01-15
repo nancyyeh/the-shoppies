@@ -7,6 +7,7 @@ import { SearchBar } from "./components/SearchBar";
 import { Nominations } from "./components/Nominations";
 import { SearchResults } from "./components/SearchResults";
 import { ViewCodeButton } from "./components/ViewCodeButton";
+import { findMovies } from "./api/OmdbAPI";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +50,7 @@ function App() {
   const [nominations, setNominations] = useState(
     JSON.parse(localStorage.getItem("nominations") || "{}")
   );
+
   const classes = useStyles();
 
   // set nominations to local storage
@@ -70,22 +72,11 @@ function App() {
     onSetNomination(newNomination);
   };
 
-  // when page number changes
-  const handlePageChange = (event, value) => {
-    setPage(value);
-    sendQuery(searchKey, value);
-  };
-
-  // handle reset nomatinations - clear all nomaintions
-  const handleResetNominations = () => {
+  // handle submit nomatinations - clear all nomaintions and clear search key
+  const submitNominations = () => {
     onSetNomination({});
+    setSearchKey("");
   };
-
-  // debounce - delay query to 200m to not over load the fetch
-  const delayedQuery = useCallback(
-    _.debounce((searchKey) => sendQuery(searchKey), 200),
-    []
-  );
 
   // update search value
   const onSearchChange = (e) => {
@@ -94,40 +85,33 @@ function App() {
     delayedQuery(searchKey);
   };
 
-  // send query to fetch movie list if keyword search is longer than 2 characters
-  const sendQuery = (searchKey, page) => {
-    const url = `https://www.omdbapi.com/?apikey=cbf06e88&s=${searchKey.trim()}&page=${page}&type=movie`;
+  // perform the search and catch error
+  const performSearch = (searchKey, page) => {
     if (searchKey.length > 2) {
-      fetch(url, {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then(
-          (result) => {
-            if (result.Response === "True") {
-              setNumResults(result.totalResults);
-              const data = {};
-              result.Search.forEach((item) => {
-                data[item.imdbID] = item;
-              });
-              setMovieData(data);
-              setIsError(false);
-            } else {
-              setError(result.Error);
-              setIsError(true);
-            }
-          },
-          (error) => {
-            setIsError(true);
-            setError(error);
-          }
-        );
+      findMovies(searchKey, page)
+        .then((results) => {
+          setNumResults(results.totalResults);
+          setMovieData(results.movies);
+          setIsError(false);
+        })
+        .catch((error) => {
+          setError(error);
+          setIsError(true);
+        });
     }
   };
 
-  const clearSearch = () => {
-    setSearchKey("");
+  // when page number changes
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    performSearch(searchKey, value);
   };
+
+  // debounce - delay query to 200ms to not over load the fetch
+  const delayedQuery = useCallback(
+    _.debounce((searchKey) => performSearch(searchKey), 200),
+    []
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -169,8 +153,7 @@ function App() {
                   <Nominations
                     nominations={nominations}
                     removeNomination={removeNomination}
-                    handleResetNominations={handleResetNominations}
-                    clearSearch={clearSearch}
+                    submitNominations={submitNominations}
                   />
                 </Box>
               </Paper>

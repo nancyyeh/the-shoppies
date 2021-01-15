@@ -14,8 +14,7 @@ const useStyles = makeStyles((theme) => ({
 export function Nominations({
   nominations,
   removeNomination,
-  handleResetNominations,
-  clearSearch,
+  submitNominations,
 }) {
   const classes = useStyles();
   const [isNominationSubmit, setIsNominationSubmit] = useState(false);
@@ -55,10 +54,9 @@ export function Nominations({
           color="primary"
           onClick={() => {
             setIsNominationSubmit(true);
-            handleResetNominations();
-            clearSearch();
+            submitNominations();
           }}
-          aria-label="reset nominations"
+          aria-label="submit nominations"
         >
           Submit
         </Button>
