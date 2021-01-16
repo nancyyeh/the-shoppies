@@ -2,7 +2,7 @@
 
 An app to help manage movie nominations for the upcoming Shoppies
 
-Demo: https://nancyyeh.github.io/the-shoppies/
+Live site: https://nancyyeh.github.io/the-shoppies/
 
 <a href="https://nancyyeh.github.io/the-shoppies/"><img src="public/demo.gif" alt="drawing" width="600"/></a>
 
