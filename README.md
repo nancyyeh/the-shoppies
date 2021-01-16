@@ -11,12 +11,18 @@ Demo: https://nancyyeh.github.io/the-shoppies/
 - Since OMDB also only has 1,000 daily limit, I added a debounce on the search query so there is a delay in search query when the user is typing. Solves: overloading the OMDB database / hitting daily limits
 - Use Material-UI library to make it look clean, simple, modern, and responsive!
 - Responsive design to display search results and nomination list
+
   - Wide Screen(desktop): 2 column grid layout - Search Results 2/3 of screen, nomination list 1/3 of screen.
+
     <img src="public/wide.png" alt="drawing" width="400"/>
     - Nomination list is sticked to top while scrolling.
+
       <img src="public/scroll.gif" alt="drawing" width="400"/>
+
   - Narrow Screen(mobile): 1 column stacked layout - Search results will turn from card view into listed view when width is < 600px.
+
     <img src="public/narrow.png" alt="drawing" width="200"/>
+
 - Display movie poster returned from OMDB as avator. If no poster is returned from OMDB, a generic movie icon is displayed for list view, and blank placeholder is displayed for card view.
 - Use pagination to show more research results.
 - Use local storage to save nominated movies.
