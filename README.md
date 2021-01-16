@@ -13,10 +13,9 @@ Demo: https://nancyyeh.github.io/the-shoppies/
 - Responsive design to display search results and nomination list
 
   - Wide Screen(desktop): 2 column grid layout - Search Results 2/3 of screen, nomination list 1/3 of screen.
-
     <img src="public/wide.png" alt="drawing" width="400"/>
-    - Nomination list is sticked to top while scrolling.
 
+    - Nomination list is sticked to top while scrolling.
       <img src="public/scroll.gif" alt="drawing" width="400"/>
 
   - Narrow Screen(mobile): 1 column stacked layout - Search results will turn from card view into listed view when width is < 600px.
