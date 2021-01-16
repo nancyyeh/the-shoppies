@@ -4,7 +4,7 @@ An app to help manage movie nominations for the upcoming Shoppies
 
 Demo: https://nancyyeh.github.io/the-shoppies/
 
-<a href="https://nancyyeh.github.io/the-shoppies/">![](public/demo.gif)</a>
+<a href="https://nancyyeh.github.io/the-shoppies/">![](public/demo.gif =600x)</a>
 
 # 💭 Design Decisions
 
@@ -12,11 +12,11 @@ Demo: https://nancyyeh.github.io/the-shoppies/
 - Use Material-UI library to make it look clean, simple, modern, and responsive!
 - Responsive design to display search results and nomination list
   - Wide Screen(desktop): 2 column grid layout - Search Results 2/3 of screen, nomination list 1/3 of screen.
-    ![](public/wide.png)
+    ![](public/wide.png =400x)
     - Nomination list is sticked to top while scrolling.
-      ![](public/scroll.gif)
+      ![](public/scroll.gif =400x)
   - Narrow Screen(mobile): 1 column stacked layout - Search results will turn from card view into listed view when width is < 600px.
-    ![](public/narrow.png)
+    ![](public/narrow.png =200x)
 - Display movie poster returned from OMDB as avator. If no poster is returned from OMDB, a generic movie icon is displayed for list view, and blank placeholder is displayed for card view.
 - Use pagination to show more research results.
 - Use local storage to save nominated movies.
